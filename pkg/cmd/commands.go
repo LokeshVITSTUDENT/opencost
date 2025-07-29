@@ -8,6 +8,7 @@ import (
 	"github.com/opencost/opencost/core/pkg/log"
 	"github.com/opencost/opencost/pkg/cmd/agent"
 	"github.com/opencost/opencost/pkg/cmd/costmodel"
+	cmdmcp "github.com/opencost/opencost/pkg/cmd/mcp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -21,6 +22,9 @@ const (
 
 	// CommandAgent executes the application in agent mode, which provides only metrics exporting.
 	CommandAgent string = "agent"
+	
+	// CommandMCP executes the application in MCP server mode for AI agents
+	CommandMCP string = "mcp"
 )
 
 // Execute runs the root command for the application. By default, if no command argument is provided,
@@ -88,6 +92,7 @@ func newRootCommand(costModelCmd *cobra.Command, cmds ...*cobra.Command) *cobra.
 		append([]*cobra.Command{
 			costModelCmd,
 			newAgentCommand(),
+			cmdmcp.NewMCPCommand(),
 		}, cmds...)...,
 	)
 

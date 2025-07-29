@@ -37,6 +37,7 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/kubecost/events v0.0.8
 	github.com/microcosm-cc/bluemonday v1.0.23
+	github.com/modelcontextprotocol/go-sdk v0.1.0
 	github.com/opencost/opencost/core v0.0.0-20250521155634-81d2b597d1bc
 	github.com/opencost/opencost/modules/collector-source v0.0.0-00010101000000-000000000000
 	github.com/opencost/opencost/modules/prometheus-source v0.0.0-00010101000000-000000000000
@@ -52,8 +53,8 @@ require (
 	go.opentelemetry.io/otel v1.33.0
 	golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0
 	golang.org/x/oauth2 v0.27.0
-	golang.org/x/sync v0.13.0
-	golang.org/x/text v0.24.0
+	golang.org/x/sync v0.15.0
+	golang.org/x/text v0.26.0
 	google.golang.org/api v0.183.0
 	google.golang.org/protobuf v1.36.5
 	k8s.io/api v0.33.1
@@ -71,7 +72,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/common v0.63.0 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
-	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
@@ -181,13 +181,13 @@ require (
 	go.opentelemetry.io/otel/metric v1.33.0 // indirect
 	go.opentelemetry.io/otel/trace v1.33.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
-	golang.org/x/crypto v0.37.0 // indirect
-	golang.org/x/mod v0.24.0 // indirect
-	golang.org/x/net v0.39.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
-	golang.org/x/term v0.31.0 // indirect
+	golang.org/x/crypto v0.39.0 // indirect
+	golang.org/x/mod v0.25.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/term v0.32.0 // indirect
 	golang.org/x/time v0.9.0 // indirect
-	golang.org/x/tools v0.32.0 // indirect
+	golang.org/x/tools v0.34.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/genproto v0.0.0-20240528184218-531527333157 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240903143218-8af14fe29dc1 // indirect
