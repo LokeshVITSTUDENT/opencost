@@ -41,10 +41,11 @@ func (kdc KubecostDeploymentCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, deployment := range ds {
 		deploymentName := deployment.Name
 		deploymentNS := deployment.Namespace
+		deploymentUID := string(deployment.UID)
 
 		labels, values := promutil.KubeLabelsToLabels(promutil.SanitizeLabels(deployment.MatchLabels))
 		if len(labels) > 0 {
-			m := newDeploymentMatchLabelsMetric(deploymentName, deploymentNS, "deployment_match_labels", labels, values)
+			m := newDeploymentMatchLabelsMetric(deploymentName, deploymentNS, deploymentUID, "deployment_match_labels", labels, values)
 			ch <- m
 		}
 	}
@@ -63,10 +64,11 @@ type DeploymentMatchLabelsMetric struct {
 	labelValues    []string
 	deploymentName string
 	namespace      string
+	uid            string
 }
 
 // Creates a new DeploymentMatchLabelsMetric, implementation of prometheus.Metric
-func newDeploymentMatchLabelsMetric(name, namespace, fqname string, labelNames, labelvalues []string) DeploymentMatchLabelsMetric {
+func newDeploymentMatchLabelsMetric(name, namespace, uid, fqname string, labelNames, labelvalues []string) DeploymentMatchLabelsMetric {
 	return DeploymentMatchLabelsMetric{
 		fqName:         fqname,
 		labelNames:     labelNames,
@@ -74,6 +76,7 @@ func newDeploymentMatchLabelsMetric(name, namespace, fqname string, labelNames, 
 		help:           "deployment_match_labels Deployment Match Labels",
 		deploymentName: name,
 		namespace:      namespace,
+		uid:            uid,
 	}
 }
 
@@ -83,6 +86,7 @@ func (dmlm DeploymentMatchLabelsMetric) Desc() *prometheus.Desc {
 	l := prometheus.Labels{
 		"deployment": dmlm.deploymentName,
 		"namespace":  dmlm.namespace,
+		"uid":        dmlm.uid,
 	}
 	return prometheus.NewDesc(dmlm.fqName, dmlm.help, dmlm.labelNames, l)
 }
@@ -101,14 +105,20 @@ func (dmlm DeploymentMatchLabelsMetric) Write(m *dto.Metric) error {
 			Value: &dmlm.labelValues[i],
 		})
 	}
-	labels = append(labels, &dto.LabelPair{
-		Name:  toStringPtr("namespace"),
-		Value: &dmlm.namespace,
-	})
-	labels = append(labels, &dto.LabelPair{
-		Name:  toStringPtr("deployment"),
-		Value: &dmlm.deploymentName,
-	})
+	labels = append(labels,
+		&dto.LabelPair{
+			Name:  toStringPtr("namespace"),
+			Value: &dmlm.namespace,
+		},
+		&dto.LabelPair{
+			Name:  toStringPtr("deployment"),
+			Value: &dmlm.deploymentName,
+		},
+		&dto.LabelPair{
+			Name:  toStringPtr("uid"),
+			Value: &dmlm.uid,
+		},
+	)
 	m.Label = labels
 	return nil
 }
