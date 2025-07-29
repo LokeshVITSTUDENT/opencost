@@ -1,12 +1,9 @@
 package mcp
 
 import (
-	"context"
-	"fmt"
 	"time"
 
 	"github.com/opencost/opencost/core/pkg/opencost"
-	"github.com/opencost/opencost/pkg/costmodel"
 )
 
 // ConversationContext maintains the state and context for an ongoing conversation
